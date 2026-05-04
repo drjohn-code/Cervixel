@@ -1,3 +1,4 @@
+# Triggering the workflow
 name: Safety Summary
 
 on:
