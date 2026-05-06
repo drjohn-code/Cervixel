@@ -1,26 +1,74 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Font */
+  --font-sans: var(--font-inter);
+
+  /* Brand colours */
+  --color-primary: #0f4c5c;
+  --color-primary-dark: #0a3540;
+  --color-primary-light: #1a6b80;
+
+  --color-accent: #e07040;
+  --color-accent-dark: #c05a2e;
+  --color-accent-light: #f59460;
+
+  /* Semantic surface colours */
+  --color-bg: #ffffff;
+  --color-surface: #f8fafc;
+  --color-border: #e2e8f0;
+
+  /* Text */
+  --color-text: #1e293b;
+  --color-muted: #64748b;
+
+  /* Status */
+  --color-success: #16a34a;
+  --color-warning: #ca8a04;
+  --color-danger: #dc2626;
+
+  /* Explicit slate scale */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Base resets */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Focus visible ring — uses primary teal */
+:focus-visible {
+  outline: 2px solid #0f4c5c;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  font-size: 1rem; /* minimum 16px per §CLAUDE 11 */
+}
+
+/* Prose defaults for long-form content */
+.prose {
+  line-height: 1.7;
+  max-width: 70ch;
+}
+
+.prose p + p {
+  margin-top: 1em;
 }

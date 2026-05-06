@@ -1,0 +1,31 @@
+# Cervixel — llms.txt
+# Canonical pages for AI/LLM indexing (SEO §6.6 / CLAUDE §4)
+# Last updated: 2026-05-06
+
+## About
+
+Cervixel is a Lithuanian biotechnology company developing CRISPR-based rapid diagnostic tests for cervical cancer, aligned with the WHO 2030 cervical cancer elimination goal.
+
+Founder & CEO: John Muhammadi, M.D., MBA
+Contact: info@cervixel.com
+Address: Kastonu gatve 4, 01107, Vilnius, Lithuania
+
+## Pillar pages
+
+- https://cervixel.com/ — Homepage: company overview, mission, CervixScan product teaser, and service lines
+- https://cervixel.com/products/cervixscan — CervixScan product page: CRISPR-based cervical cancer rapid diagnostic test, preorder information, regulatory status
+- https://cervixel.com/about — About Cervixel: founding story, team, university affiliations, awards, mission
+- https://cervixel.com/contact — Contact page: address, phone, email, contact form
+
+## Service pages
+
+- https://cervixel.com/services — Services overview: five biotech and medical service lines
+- https://cervixel.com/services/regulatory-affairs — Regulatory Affairs & Compliance Consulting
+- https://cervixel.com/services/product-development — Biotech & Pharmaceutical Product Development
+- https://cervixel.com/services/quality-assurance — Independent Quality Assurance & Product Verification
+- https://cervixel.com/services/market-research — Advanced Market Research & Business Intelligence
+- https://cervixel.com/services/medical-writing — Professional Medical & Scientific Content Writing
+
+## Blog
+
+- https://cervixel.com/blog — Blog index: articles on cervical cancer, CRISPR diagnostics, regulatory affairs, and industry news
