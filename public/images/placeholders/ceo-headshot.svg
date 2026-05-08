@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="400" height="480" role="img" aria-label="John Muhammadi headshot placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a6b80"/>
+      <stop offset="100%" stop-color="#0a3540"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="480" fill="url(#bg)"/>
+  <circle cx="200" cy="190" r="68" fill="#ffffff" opacity="0.92"/>
+  <path d="M84 440c0-64 52-116 116-116s116 52 116 116v40H84z" fill="#ffffff" opacity="0.92"/>
+  <text x="200" y="208" font-family="Inter, system-ui, sans-serif" font-size="64" fill="#0f4c5c" text-anchor="middle" font-weight="600" letter-spacing="2">JM</text>
+</svg>
