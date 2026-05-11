@@ -15,11 +15,12 @@
 3. [Phase 2 — Static Marketing Pages](#phase-2--static-marketing-pages)
 4. [Phase 3 — Product Page & Preorder Flow](#phase-3--product-page--preorder-flow)
 5. [Phase 4 — Homepage](#phase-4--homepage)
-6. [Phase 5 — Blog System](#phase-5--blog-system)
-7. [Phase 6 — Pre-Launch Hardening & QA](#phase-6--pre-launch-hardening--qa)
-8. [Phase 7 — Launch & Post-Launch](#phase-7--launch--post-launch)
-9. [Cross-Cutting Open Questions](#cross-cutting-open-questions)
-10. [Definition of Done (Every Sprint)](#definition-of-done-every-sprint)
+6. [Phase 6 — Pre-Launch Hardening & QA](#phase-6--pre-launch-hardening--qa)
+7. [Phase 7 — Launch & Post-Launch](#phase-7--launch--post-launch)
+8. [Cross-Cutting Open Questions](#cross-cutting-open-questions)
+9. [Definition of Done (Every Sprint)](#definition-of-done-every-sprint)
+
+> Phase 5 (Blog System) was removed in May 2026. Blog is now permanently out of scope for the marketing site — the original `/blog` and `/blog/[slug]` routes will not ship.
 
 ---
 
@@ -175,7 +176,7 @@
 **Scope.** Reusable, typed builders for every schema type the site uses.
 
 **Deliverables.** In `lib/seo/schema/`:
-- Builders for `Organization`, `WebSite` + `SearchAction`, `BreadcrumbList`, `Service`, `Product` + `Offer`, `FAQPage`, `Article` / `BlogPosting`, `Person`, `AboutPage`, `ContactPage`.
+- Builders for `Organization`, `WebSite` + `SearchAction`, `BreadcrumbList`, `Service`, `Product` + `Offer`, `FAQPage`, `Person`, `AboutPage`, `ContactPage`.
 - `<JsonLd data={...} />` Server Component that emits `<script type="application/ld+json">`.
 - Shared `Organization` constant sourced from `CLAUDE §2` (single source of truth — NAP byte-identical).
 - Type-safe schema input via `schema-dts` (recommended) or hand-written interfaces.
@@ -213,10 +214,10 @@
 
 **Deliverables.**
 - `lib/seo/page-brief.ts` exporting a `PageBrief` TypeScript interface mirroring `SEO §16` fields.
-- `docs/page-briefs/` directory with one `.md` per planned page (homepage, product, 5 services, about, contact, blog index, blog template) — initially empty templates.
+- `docs/page-briefs/` directory with one `.md` per planned page (homepage, product, 6 services incl. hub, about, contact) — initially empty templates.
 - `scripts/check-briefs.ts` CI step that fails the build if a route exists without a corresponding completed brief.
 
-**Acceptance.** Empty brief files exist for all 11 planned pages. CI step is wired but in `warn` mode until briefs are filled (Phase 2+).
+**Acceptance.** Empty brief files exist for all 10 planned pages. CI step is wired but in `warn` mode until briefs are filled (Phase 2+).
 
 **Dependencies.** Sprint 1.2.
 
@@ -388,7 +389,7 @@ Same shape, slug `/services/medical-writing`. Outbound to ICMJE, EMWA, CONSORT g
 
 **Goal.** Ship the highest-commercial-value page with a working preorder funnel. Highest-risk phase due to regulatory wording and payments.
 
-**Exit criteria.** `/products/cervixscan` is live, Stripe checkout completes a test preorder, the order persists, and the legal/regulatory wording has been signed off.
+**Exit criteria.** `/products/rapidcan` is live, Stripe checkout completes a test preorder, the order persists, and the legal/regulatory wording has been signed off.
 
 ---
 
@@ -413,7 +414,7 @@ Same shape, slug `/services/medical-writing`. Outbound to ICMJE, EMWA, CONSORT g
 **Scope.** Static product page per `CLAUDE §6.2`, ready for content review.
 
 **Deliverables.**
-- `app/products/cervixscan/page.tsx` with: hero + primary CTA, the problem, WHO 2030 mandate, product overview, how it works (3 steps), regulatory & clinical status (precise wording from 3.1), preorder section (UI only — buttons disabled), awards & trust signals, FAQ.
+- `app/products/rapidcan/page.tsx` with: hero + primary CTA, the problem, WHO 2030 mandate, product overview, how it works (3 steps), regulatory & clinical status (precise wording from 3.1), preorder section (UI only — buttons disabled), awards & trust signals, FAQ.
 - 1,200–1,800 words of unique copy; comparison table; stats with sources; expert quote / first-hand insight.
 - Pricing language explicit: preorder is for **healthcare providers, distributors, and institutional buyers at scale** `[CLAUDE §6.2]`.
 - JSON-LD: `Product` + `Offer` (with `priceCurrency: EUR`, `availability: PreOrder`, `priceValidUntil`), `FAQPage`, `BreadcrumbList`. `MedicalDevice` only if approved in 3.1.
@@ -456,7 +457,7 @@ Same shape, slug `/services/medical-writing`. Outbound to ICMJE, EMWA, CONSORT g
 - Inserts a `pending` row in `preorders` keyed by Stripe session ID at session-creation time.
 - Stripe configured via env vars; defaults to test mode.
 
-**Acceptance.** Clicking a preorder tier triggers Stripe Checkout in test mode, completes a test card flow, and returns to `/products/cervixscan/preorder/success` showing the reference.
+**Acceptance.** Clicking a preorder tier triggers Stripe Checkout in test mode, completes a test card flow, and returns to `/products/rapidcan/preorder/success` showing the reference.
 
 **Dependencies.** Sprints 3.2, 3.3.
 
@@ -492,7 +493,7 @@ Same shape, slug `/services/medical-writing`. Outbound to ICMJE, EMWA, CONSORT g
 - Accessibility pass: keyboard-only flow, screen-reader pass, focus management on modal open/close.
 - Mobile-first review of the entire flow at 360–414 px widths.
 
-**Acceptance.** Full preorder flow works on mobile via keyboard only. Lighthouse a11y ≥ 95 on `/products/cervixscan`.
+**Acceptance.** Full preorder flow works on mobile via keyboard only. Lighthouse a11y ≥ 95 on `/products/rapidcan`.
 
 **Dependencies.** Sprint 3.5.
 
@@ -513,7 +514,7 @@ Same shape, slug `/services/medical-writing`. Outbound to ICMJE, EMWA, CONSORT g
 **Scope.** Per `CLAUDE §6.1`.
 
 **Deliverables.**
-- `app/page.tsx` with sections in order: hero, problem stat blocks (660,000 cases/year, 350,000 deaths/year, 20-day wait, WHO 2030 — every stat with a cited source), mission & vision, awards, product teaser linking to `/products/cervixscan`, services row (5 cards linking to each service page), university affiliations strip, CEO quote with headshot, footer.
+- `app/page.tsx` with sections in order: hero, problem stat blocks (660,000 cases/year, 350,000 deaths/year, 20-day wait, WHO 2030 — every stat with a cited source), mission & vision, awards, product teaser linking to `/products/rapidcan`, services row (5 cards linking to each service page), university affiliations strip, CEO quote with headshot, footer.
 - 600–1,200 words. Direct-answer block in the first 40–60 words.
 - Primary CTA: *Preorder now — 40% off* → product page. Secondary: *Explore our services* → services index.
 - JSON-LD: `Organization`, `WebSite` + `SearchAction`. `MedicalOrganization` only if approved in Sprint 3.1.
@@ -542,112 +543,6 @@ Same shape, slug `/services/medical-writing`. Outbound to ICMJE, EMWA, CONSORT g
 **Dependencies.** Sprint 4.1.
 
 **References.** `SEO §11`, `CLAUDE §13`.
-
----
-
-## Phase 5 — Blog System
-
-**Goal.** Foundation for ongoing content marketing and E-E-A-T signal building. Ship the system + one launch article.
-
-**Exit criteria.** `/blog` and `/blog/[slug]` render, one published article exists, RSS feed available.
-
----
-
-### Sprint 5.1 — Blog content source decision *(blocker — short)*
-
-**Scope.** Resolve `[Open Question #4]` — MDX vs. Supabase vs. headless CMS.
-
-**Recommendation.** MDX in repo for editorial control, speed, and Git review of changes. Switch to Supabase only if non-developer editors require direct write access. Document the decision in `docs/decisions/`.
-
-**Acceptance.** Decision recorded with rationale.
-
----
-
-### Sprint 5.2 — Blog data layer *(1 day, varies by 5.1 outcome)*
-
-**Scope.** Implement the chosen content source.
-
-**MDX path (recommended).**
-- `content/blog/*.mdx` with frontmatter (`title`, `description`, `slug`, `category`, `publishedAt`, `updatedAt`, `author`, `coverImage`, `tags`).
-- `lib/blog/index.ts` with typed loaders: `getAllPosts()`, `getPostBySlug()`, `getPostsByCategory()`. Uses `next/mdx` or `contentlayer` (or `@content-collections/core`).
-- Author registry in `content/authors/*.json` with `Person` schema fields.
-
-**Supabase path (alternative).** Migrations for `blog_posts` and `authors` per `CLAUDE §10`; RLS: read for `anon` where `published_at <= now()`, write for `editor`.
-
-**Acceptance.** Loader returns typed posts and authors; build succeeds with at least one stub post.
-
-**Dependencies.** Sprint 5.1.
-
-**References.** `CLAUDE §10`.
-
----
-
-### Sprint 5.3 — Blog index *(0.5 day)*
-
-**Scope.** `/blog` per `CLAUDE §6.6`.
-
-**Deliverables.**
-- Card grid: cover image, category tag, title, 2-line excerpt, date, read-time, link.
-- Category filter (initial categories: Cervical Cancer · CRISPR · Regulatory · Industry News).
-- Pagination or "load more" if > 9 posts (defer until needed).
-- JSON-LD: `Blog`, `BreadcrumbList`. Compliant `generateMetadata`.
-
-**Acceptance.** Index renders with the seed post. Sitemap auto-includes blog routes.
-
-**Dependencies.** Sprint 5.2.
-
----
-
-### Sprint 5.4 — Blog article template *(1 day)*
-
-**Scope.** `/blog/[slug]` per `CLAUDE §6.6`.
-
-**Deliverables.**
-- Hero image, breadcrumb, author byline (real name, photo, bio, LinkedIn — `Person` schema), publish + updated dates.
-- MDX/HTML body styled via the `Prose` primitive; pull-quote, callout, table, image components.
-- Related articles (3) by shared category or tag.
-- CTA block at end linking to product or relevant service.
-- JSON-LD: `BlogPosting` (or `Article`) with `author`, `datePublished`, `dateModified`, `image`, `mainEntityOfPage`, `BreadcrumbList`.
-- Auto-generated table of contents from H2/H3 (sticky on desktop).
-- Reading-time calculation in the loader.
-
-**Acceptance.** A sample article renders with all elements. Schema validates. Direct-answer block is the first 40–60 words.
-
-**Dependencies.** Sprint 5.2.
-
-**References.** `CLAUDE §6.6`, `SEO §10.1`.
-
----
-
-### Sprint 5.5 — RSS feed and sitemap integration *(0.25 day)*
-
-**Scope.** Distribution and discoverability.
-
-**Deliverables.**
-- `app/feed.xml/route.ts` (or `app/rss.xml/route.ts`) emitting Atom or RSS 2.0.
-- `<link rel="alternate" type="application/rss+xml">` in the layout head.
-- Blog routes added to `sitemap.ts`.
-
-**Acceptance.** Feed validates at validator.w3.org/feed. Sitemap includes all blog URLs.
-
-**Dependencies.** Sprint 5.4.
-
----
-
-### Sprint 5.6 — Launch article *(1 day)*
-
-**Scope.** Publish one substantive article to seed E-E-A-T and start the cluster `[SEO §10]`.
-
-**Deliverables.**
-- One 1,200–2,000 word article on a topic adjacent to CervixScan (e.g., *Why CRISPR-based diagnostics are reshaping cervical cancer screening*). Real author byline, real bio.
-- Compliant per `SEO §13`: direct-answer block, stat with source, expert quote / first-hand insight, comparison table or list, 3–8 internal links, 2–4 outbound to authoritative sources (WHO, peer-reviewed journals).
-- Cover image with descriptive alt text and file name.
-
-**Acceptance.** Passes the full content quality checklist. Article links to product and at least one service page.
-
-**Dependencies.** Sprint 5.4, [Open Question #8](#cross-cutting-open-questions) (author confirmed).
-
-**References.** `SEO §13`, `SEO §10`.
 
 ---
 
@@ -855,13 +750,11 @@ These mirror `CLAUDE §14`. Each one has at least one sprint that depends on it.
 | 1 | Final wording for the "100% diagnostic accuracy" claim | Sprint 3.1 → all of Phase 3 |
 | 2 | `MedicalOrganization` and `MedicalDevice` schema applicability | Sprints 1.3, 3.2, 4.1 |
 | 3 | Multi-language plan (Lithuanian etc.) and URL strategy | Phase 1 routing decisions |
-| 4 | Blog content source (MDX / Supabase / headless CMS) | Sprint 5.1 |
-| 5 | Email provider (Resend / Mailchimp / Beehiiv) | Sprint 2.3 |
-| 6 | CRM integration (HubSpot / Pipedrive / none) | Sprints 2.3, 3.5 |
-| 7 | Stripe live vs. test for initial launch; Stripe Tax | Sprint 3.1 → Sprint 7.1 |
-| 8 | Public author bylines for blog | Sprint 5.6 |
-| 9 | CEO headshot, product imagery, microscopy assets | Sprints 2.1, 3.2, 4.1 |
-| 10 | Final Privacy / Terms / Cookie copy from legal counsel | Sprint 6.6 |
+| 4 | Email provider (Resend / Mailchimp / Beehiiv) | Sprint 2.3 |
+| 5 | CRM integration (HubSpot / Pipedrive / none) | Sprints 2.3, 3.5 |
+| 6 | Stripe live vs. test for initial launch; Stripe Tax | Sprint 3.1 → Sprint 7.1 |
+| 7 | CEO headshot, product imagery, microscopy assets | Sprints 2.1, 3.2, 4.1 |
+| 8 | Final Privacy / Terms / Cookie copy from legal counsel | Sprint 6.6 |
 
 ---
 
@@ -893,10 +786,9 @@ Approximate dev-days for a single senior full-stack engineer, excluding waiting 
 | 2 — Static marketing pages | ~6 |
 | 3 — Product + preorder | ~5 |
 | 4 — Homepage | ~2 |
-| 5 — Blog system | ~4 |
 | 6 — Hardening & QA | ~3.5 |
 | 7 — Launch & post-launch | ~1.25 + ongoing |
-| **Total** | **~30 dev-days** |
+| **Total** | **~26 dev-days** |
 
 Add buffer for asset delivery, legal review, and Open-Question resolution. Realistic calendar time: **8–10 weeks** for a single engineer with normal review cycles; **5–6 weeks** with a focused two-person team (one on Phase 2 in parallel with another on Phase 3).
 

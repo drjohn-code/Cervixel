@@ -3,7 +3,7 @@
  * Every planned route requires a completed brief in docs/page-briefs/ before shipping.
  */
 export interface PageBrief {
-  /** The route, e.g. "/" or "/products/cervixscan" */
+  /** The route, e.g. "/" or "/products/rapidcan" */
   slug: string;
 
   /** Primary keyword (one per page — SEO §4.1) */

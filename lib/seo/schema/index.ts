@@ -120,27 +120,38 @@ export type ProductInput = {
   name: string;
   description: string;
   image?: string;
-  /** ISO 8601 date */
-  priceValidUntil: string;
-  priceCents: number;
+  /** Schema.org category, e.g. "In vitro diagnostic device". */
+  category?: string;
+  /** ISO 8601 date — omit while no legal-approved price exists. */
+  priceValidUntil?: string;
+  /** Omit while no legal-approved price exists; Offer still emits availability. */
+  priceCents?: number;
+  productPath: string;
 };
 
 export function buildProductSchema(product: ProductInput) {
+  const hasPrice =
+    typeof product.priceCents === "number" && product.priceValidUntil;
+  const offer: Record<string, unknown> = {
+    "@type": "Offer",
+    priceCurrency: "EUR",
+    availability: "https://schema.org/PreOrder",
+    url: `${SITE_URL}${product.productPath}`,
+  };
+  if (hasPrice) {
+    offer["price"] = (product.priceCents! / 100).toFixed(2);
+    offer["priceValidUntil"] = product.priceValidUntil;
+  }
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
     description: product.description,
-    image: product.image ?? `${SITE_URL}/images/cervixscan.jpg`,
+    image: product.image ?? `${SITE_URL}/images/rapidcan.jpg`,
     brand: { "@id": ORG_ID },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "EUR",
-      price: (product.priceCents / 100).toFixed(2),
-      priceValidUntil: product.priceValidUntil,
-      availability: "https://schema.org/PreOrder",
-      url: `${SITE_URL}/products/cervixscan`,
-    },
+    manufacturer: { "@id": ORG_ID },
+    ...(product.category && { category: product.category }),
+    offers: offer,
   };
 }
 

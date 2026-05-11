@@ -22,22 +22,22 @@ export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
 
   return (
     <nav aria-label="Breadcrumb" className="py-3">
-      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted list-none">
+      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-body-sm text-muted list-none">
         {items.map((item, index) => (
           <li key={item.href} className="flex items-center gap-2">
             {index > 0 && (
-              <span aria-hidden="true" className="text-slate-300">
+              <span aria-hidden="true" className="text-gray-300">
                 /
               </span>
             )}
             {index === items.length - 1 ? (
-              <span aria-current="page" className="text-text font-medium">
+              <span aria-current="page" className="text-ink font-medium">
                 {item.label}
               </span>
             ) : (
               <Link
                 href={item.href}
-                className="hover:text-primary transition-colors"
+                className="hover:text-ink hover:underline underline-offset-4"
               >
                 {item.label}
               </Link>

@@ -1,6 +1,6 @@
 # Cervixel — llms.txt
 # Canonical pages for AI/LLM indexing (SEO §6.6 / CLAUDE §4)
-# Last updated: 2026-05-06
+# Last updated: 2026-05-10
 
 ## About
 
@@ -12,20 +12,17 @@ Address: Kastonu gatve 4, 01107, Vilnius, Lithuania
 
 ## Pillar pages
 
-- https://cervixel.com/ — Homepage: company overview, mission, CervixScan product teaser, and service lines
-- https://cervixel.com/products/cervixscan — CervixScan product page: CRISPR-based cervical cancer rapid diagnostic test, preorder information, regulatory status
-- https://cervixel.com/about — About Cervixel: founding story, team, university affiliations, awards, mission
+- https://cervixel.com/ — Homepage: company overview, mission, RapidCan product teaser, and service lines
+- https://cervixel.com/products/rapidcan — RapidCan product page: CRISPR-based cervical cancer rapid diagnostic test, preorder information, regulatory status
+- https://cervixel.com/about — About Cervixel: founding story, team, university affiliations, recognition, mission
 - https://cervixel.com/contact — Contact page: address, phone, email, contact form
 
 ## Service pages
 
-- https://cervixel.com/services — Services overview: five biotech and medical service lines
-- https://cervixel.com/services/regulatory-affairs — Regulatory Affairs & Compliance Consulting
-- https://cervixel.com/services/product-development — Biotech & Pharmaceutical Product Development
-- https://cervixel.com/services/quality-assurance — Independent Quality Assurance & Product Verification
-- https://cervixel.com/services/market-research — Advanced Market Research & Business Intelligence
-- https://cervixel.com/services/medical-writing — Professional Medical & Scientific Content Writing
-
-## Blog
-
-- https://cervixel.com/blog — Blog index: articles on cervical cancer, CRISPR diagnostics, regulatory affairs, and industry news
+- https://cervixel.com/services — Services overview: six service lines for biotech, pharma, clinical, and procurement partners
+- https://cervixel.com/services/crispr-assay-development — CRISPR assay development: design and bench validation of Cas-based detection chemistries
+- https://cervixel.com/services/molecular-diagnostics-consulting — Molecular diagnostics consulting: platform, target, and pipeline strategy
+- https://cervixel.com/services/clinical-validation-support — Clinical validation support: protocol design, statistical planning, study documentation
+- https://cervixel.com/services/regulatory-strategy — Regulatory strategy: IVDR pathway, technical-file structuring, pre-submission planning
+- https://cervixel.com/services/contract-research — Contract research: scoped laboratory work for biotech, pharma, and investor partners
+- https://cervixel.com/services/global-procurement — Global procurement services: sourcing of CE-marked devices, IVDs, and pharmaceuticals from European supply chains

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
 
 type NavLink = { readonly href: string; readonly label: string };
 
@@ -37,7 +38,7 @@ export default function MobileMenu({ links }: { links: readonly NavLink[] }) {
         aria-controls="mobile-nav"
         aria-label={open ? "Close navigation menu" : "Open navigation menu"}
         onClick={() => setOpen((prev) => !prev)}
-        className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded text-text hover:text-primary transition-colors"
+        className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-md text-ink"
       >
         <svg
           aria-hidden="true"
@@ -68,29 +69,31 @@ export default function MobileMenu({ links }: { links: readonly NavLink[] }) {
         <div
           id="mobile-nav"
           ref={menuRef}
-          className="absolute inset-x-0 top-16 z-40 border-t border-border bg-bg shadow-lg"
+          className="absolute inset-x-0 top-[72px] z-40 border-t border-border bg-bg shadow-md"
         >
           <nav aria-label="Mobile navigation">
-            <ul className="flex flex-col py-2 list-none">
+            <ul className="flex flex-col py-3 list-none">
               {links.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block px-6 py-3 text-base font-medium text-text hover:bg-surface hover:text-primary transition-colors"
+                    className="block px-6 py-3 text-h5 font-medium text-ink hover:bg-gray-100"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
-              <li className="px-6 py-3">
-                <Link
-                  href="/products/cervixscan"
+              <li className="px-6 py-4">
+                <Button
+                  href="/products/rapidcan/preorder"
+                  variant="primary"
+                  size="md"
                   onClick={() => setOpen(false)}
-                  className="block w-full rounded bg-accent px-4 py-3 text-center text-sm font-semibold text-white hover:bg-accent-dark transition-colors"
+                  className="w-full"
                 >
-                  Preorder Now
-                </Link>
+                  Preorder
+                </Button>
               </li>
             </ul>
           </nav>

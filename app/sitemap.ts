@@ -4,8 +4,8 @@ const SITE_URL =
   process.env["NEXT_PUBLIC_SITE_URL"] ?? "https://cervixel.com";
 
 /**
- * Static sitemap — extended by later sprints as routes are added.
- * Blog and dynamic routes are added to this registry when they ship.
+ * Static sitemap. Routes match the live app/ tree — keep in sync with
+ * lib/services/services.ts when services are added or renamed.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${SITE_URL}/products/cervixscan`,
+      url: `${SITE_URL}/products/rapidcan`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
@@ -28,31 +28,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/services/regulatory-affairs`,
+      url: `${SITE_URL}/services/crispr-assay-development`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/services/product-development`,
+      url: `${SITE_URL}/services/molecular-diagnostics-consulting`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/services/quality-assurance`,
+      url: `${SITE_URL}/services/clinical-validation-support`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/services/market-research`,
+      url: `${SITE_URL}/services/regulatory-strategy`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/services/medical-writing`,
+      url: `${SITE_URL}/services/contract-research`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/services/global-procurement`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
@@ -68,12 +74,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.6,
-    },
-    {
-      url: `${SITE_URL}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
     },
   ];
 }

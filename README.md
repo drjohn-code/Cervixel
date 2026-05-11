@@ -1,6 +1,6 @@
 # Cervixel — Official Marketing Website
 
-Official website for **Cervixel**, a Lithuanian biotechnology startup focused on CRISPR-based molecular diagnostics. The site establishes scientific credibility with biotech, pharma, clinical, and investor audiences, drives preorders for CervixScan, and generates qualified service leads.
+Official website for **Cervixel**, a Lithuanian biotechnology startup focused on CRISPR-based molecular diagnostics. The site establishes scientific credibility with biotech, pharma, clinical, and investor audiences, drives preorders for RapidCan, and generates qualified service leads.
 
 ---
 
@@ -27,15 +27,15 @@ Official website for **Cervixel**, a Lithuanian biotechnology startup focused on
 | Company | Cervixel |
 | Category | Biotechnology / molecular diagnostics |
 | HQ | Kastonu gatve 4, 01107, Vilnius, Lithuania |
-| Flagship product | CervixScan — CRISPR-based cervical cancer rapid diagnostic test |
+| Flagship product | RapidCan — CRISPR-based cervical cancer rapid diagnostic test |
 | Regulatory status | Under CE marking review (IVDR pathway); clinical studies ongoing |
 | Product launch (est.) | Early 2028 |
-| Pages | 11 — Home, CervixScan product page, 5 service pages, About, Contact, Blog index, Blog article template |
+| Pages | 10 — Home, RapidCan product page, services hub, 6 service pages, About, Contact |
 
 ### Goals (in priority order)
 
 1. Establish scientific credibility with biotech, pharma, clinical, and investor audiences
-2. Convert preorders for CervixScan
+2. Convert preorders for RapidCan
 3. Generate qualified leads across five service lines
 4. Build organic visibility in traditional search (Google, Bing) and AI/LLM answer engines
 
@@ -132,19 +132,17 @@ app/
 ├── (marketing)/
 │   ├── page.tsx                          → Homepage
 │   ├── products/
-│   │   └── cervixscan/page.tsx           → CervixScan product page
+│   │   └── rapidcan/page.tsx             → RapidCan product page
 │   ├── services/
-│   │   ├── page.tsx                      → Services hub (optional)
-│   │   ├── regulatory-affairs/page.tsx
-│   │   ├── product-development/page.tsx
-│   │   ├── quality-assurance/page.tsx
-│   │   ├── market-research/page.tsx
-│   │   └── medical-writing/page.tsx
+│   │   ├── page.tsx                      → Services hub
+│   │   ├── crispr-assay-development/page.tsx
+│   │   ├── molecular-diagnostics-consulting/page.tsx
+│   │   ├── clinical-validation-support/page.tsx
+│   │   ├── regulatory-strategy/page.tsx
+│   │   ├── contract-research/page.tsx
+│   │   └── global-procurement/page.tsx
 │   ├── about/page.tsx
-│   ├── contact/page.tsx
-│   ├── blog/
-│   │   ├── page.tsx                      → Blog index
-│   │   └── [slug]/page.tsx               → Article template
+│   └── contact/page.tsx
 ├── api/
 │   ├── webhooks/stripe/route.ts
 │   └── contact/route.ts
@@ -168,11 +166,12 @@ Maximum 3 clicks from the homepage to any important page. Every non-homepage pag
 
 | # | Service | Slug |
 |---|---|---|
-| 1 | Regulatory Affairs & Compliance Consulting | `/services/regulatory-affairs` |
-| 2 | Biotech & Pharmaceutical Product Development | `/services/product-development` |
-| 3 | Independent Quality Assurance & Product Verification | `/services/quality-assurance` |
-| 4 | Advanced Market Research & Business Intelligence | `/services/market-research` |
-| 5 | Professional Medical & Scientific Content Writing | `/services/medical-writing` |
+| 1 | CRISPR assay development | `/services/crispr-assay-development` |
+| 2 | Molecular diagnostics consulting | `/services/molecular-diagnostics-consulting` |
+| 3 | Clinical validation support | `/services/clinical-validation-support` |
+| 4 | Regulatory strategy | `/services/regulatory-strategy` |
+| 5 | Contract research | `/services/contract-research` |
+| 6 | Global procurement services | `/services/global-procurement` |
 
 ---
 
@@ -186,8 +185,6 @@ Schema-first workflow: design tables and RLS policies before building any UI. Pr
 |---|---|
 | `contact_submissions` | Contact form submissions |
 | `preorders` | Preorder records (tier, units, Stripe session, status) |
-| `blog_posts` | Blog content (if DB-managed rather than MDX) |
-| `authors` | Author profiles for blog E-E-A-T signals |
 | `newsletter_subscribers` | Email capture |
 
 ### RLS policy approach
@@ -229,12 +226,10 @@ Every page is optimised for both traditional search engines and AI/LLM citation 
 | Page | Schemas |
 |---|---|
 | Homepage | `Organization`, `WebSite` + `SearchAction` |
-| CervixScan | `Product` + `Offer`, `FAQPage`, `BreadcrumbList` |
+| RapidCan | `Product` + `Offer`, `FAQPage`, `BreadcrumbList` |
 | Service pages | `Service`, `BreadcrumbList`, `FAQPage` (if applicable) |
 | About | `AboutPage`, `Organization`, `Person` (CEO) |
 | Contact | `ContactPage`, `Organization` |
-| Blog index | `Blog`, `BreadcrumbList` |
-| Blog article | `BlogPosting` / `Article`, `Person` (author), `BreadcrumbList` |
 
 ---
 
@@ -319,7 +314,7 @@ Both documents must be reviewed before any output that ships to users.
 
 ## Important Constraints
 
-- **Do not state CervixScan is CE certified** — it is under CE marking review (IVDR pathway).
+- **Do not state RapidCan is CE certified** — it is under CE marking review (IVDR pathway).
 - **Do not invent or exaggerate scientific claims, study results, or regulatory approvals.**
 - **Do not store or collect sensitive health information** — this is a marketing site, not a clinical platform.
 - **Do not expose the Supabase service-role key** to any client-side code.

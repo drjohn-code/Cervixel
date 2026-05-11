@@ -1,4 +1,4 @@
-# Page Brief — CervixScan Product Page (`/products/cervixscan`)
+# Page Brief — RapidCan Product Page (`/products/rapidcan`)
 
 **Status:** template
 
@@ -15,7 +15,7 @@
 
 ## Direct-answer block (40–60 words)
 
-> TBD — must answer: "What is CervixScan and why should I preorder it?"
+> TBD — must answer: "What is RapidCan and why should I preorder it?"
 
 ## H2 questions
 

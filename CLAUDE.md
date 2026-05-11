@@ -28,10 +28,10 @@
 - **Project:** Official marketing website for **Cervixel**, a Lithuanian biotechnology startup.
 - **Goals (in priority order):**
   1. Establish scientific credibility with biotech, pharma, clinical, and investor audiences.
-  2. Convert preorders for the flagship product (CervixScan).
-  3. Generate qualified service leads across five service lines.
+  2. Convert preorders for the flagship product (RapidCan).
+  3. Generate qualified service leads across six service lines.
   4. Build organic visibility in both traditional search and AI/LLM answer engines.
-- **Total pages:** 11 — Home, 1 product page, 5 service pages, About, Contact, Blog index, Blog article template.
+- **Total pages:** 10 — Home, 1 product page, 6 service pages (incl. services hub), About, Contact. Blog is out of scope.
 - **Estimated product launch:** early 2028. All preorder flows must reflect this.
 
 ---
@@ -48,18 +48,20 @@ These values are **canonical**. Use them byte-identically across the site, schem
 | Phone | +370 669 57208 |
 | Email | info@cervixel.com |
 | Founder & CEO | John Muhammadi, M.D., MBA |
-| Flagship product | **CervixScan** — CRISPR-based cervical cancer rapid diagnostic test |
+| Flagship product | **RapidCan** — CRISPR-based cervical cancer rapid diagnostic test |
 | Mission framing | Democratising early cancer detection through CRISPR-based home diagnostics, aligned with the WHO 2030 cervical cancer elimination goal. |
 
 **Awards & recognition (verified — safe to use):**
 - 1st place, Hospiton Cancer Hackathon
 - Invited to Cambridge University
+- Shortlisted for BSV Ventures' #7 deep-tech incubation programme
+- Partnership with the National Cancer Center (Nacionalinis vėžio centras) in Lithuania
 
 **Founding-team university affiliations (use as a credibility strip, not as endorsements):**
 Cambridge University · Imperial College London · London Business School · Karolinska Institute · KTH Royal Institute of Technology · Uppsala University · Stockholm School of Economics · ISM University of Management and Economics (Vilnius) · IMC Vilnius.
 
 **Regulatory status (state precisely — do not overclaim):**
-- CervixScan is **under CE marking review** (IVDR pathway).
+- RapidCan is **under CE marking review** (IVDR pathway).
 - Clinical studies are **active / ongoing**.
 - Operating jurisdiction: Lithuania (EU).
 
@@ -105,7 +107,7 @@ Cambridge University · Imperial College London · London Business School · Kar
 - **Analytics**: Vercel Analytics + Google Search Console + Bing Webmaster Tools. Optional: PostHog or Plausible if requested.
 
 ### File and route naming
-- Routes are lowercase, hyphenated, descriptive (`/services/regulatory-affairs`, not `/services/regAffairs`).
+- Routes are lowercase, hyphenated, descriptive (`/services/regulatory-strategy`, not `/services/regStrategy`).
 - Component files: PascalCase. Utility files: camelCase. Route segments: kebab-case.
 
 ---
@@ -116,17 +118,16 @@ Cambridge University · Imperial College London · London Business School · Kar
 /
 ├── (marketing)
 │   ├── /                                  → Homepage
-│   ├── /products/cervixscan                → Product landing page
-│   ├── /services                           → Services index (optional hub)
-│   ├── /services/regulatory-affairs
-│   ├── /services/product-development
-│   ├── /services/quality-assurance
-│   ├── /services/market-research
-│   ├── /services/medical-writing
+│   ├── /products/rapidcan                  → Product landing page
+│   ├── /services                           → Services hub
+│   ├── /services/crispr-assay-development
+│   ├── /services/molecular-diagnostics-consulting
+│   ├── /services/clinical-validation-support
+│   ├── /services/regulatory-strategy
+│   ├── /services/contract-research
+│   ├── /services/global-procurement
 │   ├── /about
-│   ├── /contact
-│   ├── /blog
-│   └── /blog/[slug]
+│   └── /contact
 ├── /api/...                                → Route handlers (Stripe webhooks, contact form)
 ├── sitemap.ts
 ├── robots.ts
@@ -134,7 +135,7 @@ Cambridge University · Imperial College London · London Business School · Kar
 ```
 
 - **Maximum 3 clicks** from the homepage to any important page (`SEO_GUIDELINES.md` §11.1).
-- **Topic clusters:** the product page is a pillar; blog articles on cervical cancer / CRISPR / screening link back to it. Each service page is its own pillar.
+- **Topic clusters:** the product page is a pillar. Each service page is its own pillar.
 - **Breadcrumbs** on every non-homepage page, with `BreadcrumbList` schema.
 
 ---
@@ -146,12 +147,12 @@ Every page must follow the per-page brief format in `SEO_GUIDELINES.md` §16 (pr
 ### 6.1 Homepage
 - **Intent:** transactional + informational (brand discovery → product preorder or service inquiry).
 - **Word count:** 600–1,200.
-- **Sections (in order):** Hero · The problem we solve (stat blocks: 660,000 new cases/year, 350,000 deaths/year, 20-day traditional wait, WHO 2030 goal — every stat with a cited source) · Mission & vision · Awards · Product teaser (CervixScan) · Services row (5 cards) · University affiliations strip · CEO quote with headshot · Footer.
+- **Sections (in order):** Hero · The problem we solve (stat blocks: 660,000 new cases/year, 350,000 deaths/year, 20-day traditional wait, WHO 2030 goal — every stat with a cited source) · Mission & vision · Recognition (4 cards, single source of truth) · Product teaser (RapidCan) · Services row (6 cards) · University affiliations strip · CEO quote with headshot · Footer.
 - **Primary CTA:** “Preorder now — 40% off”. **Secondary CTA:** “Explore our services”.
 - **Schema:** `Organization`, `WebSite` + `SearchAction`, `MedicalOrganization` (apply if the legal/medical position is clear — see §14 open questions).
 
-### 6.2 Product page — CervixScan
-- **Slug:** `/products/cervixscan`.
+### 6.2 Product page — RapidCan
+- **Slug:** `/products/rapidcan`.
 - **Intent:** transactional.
 - **Word count:** 1,200–1,800 (deeper than a generic service page; two audiences — clinicians/investors and individuals).
 - **Sections:** Hero with primary CTA · The problem · WHO 2030 mandate · Product overview & key claims · How it works (3 steps) · Regulatory & clinical status (precise wording — see §2) · Preorder section (€34/unit final price, 40% preorder discount, tiers: 100 / 1,000 / 5,000 / 10,000 units, Stripe checkout) · Awards & trust signals · FAQ.
@@ -159,7 +160,7 @@ Every page must follow the per-page brief format in `SEO_GUIDELINES.md` §16 (pr
 - **Schema:** `Product` + `Offer` (with `priceValidUntil`, `availability: PreOrder`, `priceCurrency: EUR`), `FAQPage` for the FAQ section, `MedicalDevice` if applicable (flag for legal review).
 - **Claim hygiene:** “100% diagnostic accuracy” is presented as a current claim from the brief — wrap it in language that ties it to study context (“in internal validation studies to date”) and add the disclaimer that all future claims will be supported by published clinical data. **Flag this for legal/regulatory review before publishing.**
 
-### 6.3 Service pages (5)
+### 6.3 Service pages (6)
 Each follows the same template:
 1. Hero (service title + tagline)
 2. Who it’s for
@@ -173,19 +174,20 @@ Each follows the same template:
 - **Intent:** commercial / transactional.
 - **Schema:** `Service` (with `provider` referencing the `Organization`), `BreadcrumbList`.
 
-The five services and their canonical slugs:
+The six services and their canonical slugs:
 
 | # | Service | Slug |
 |---|---|---|
-| 1 | Regulatory Affairs & Compliance Consulting | `/services/regulatory-affairs` |
-| 2 | Biotech & Pharmaceutical Product Development | `/services/product-development` |
-| 3 | Independent Quality Assurance & Product Verification | `/services/quality-assurance` |
-| 4 | Advanced Market Research & Business Intelligence | `/services/market-research` |
-| 5 | Professional Medical & Scientific Content Writing | `/services/medical-writing` |
+| 1 | CRISPR assay development | `/services/crispr-assay-development` |
+| 2 | Molecular diagnostics consulting | `/services/molecular-diagnostics-consulting` |
+| 3 | Clinical validation support | `/services/clinical-validation-support` |
+| 4 | Regulatory strategy | `/services/regulatory-strategy` |
+| 5 | Contract research | `/services/contract-research` |
+| 6 | Global procurement services | `/services/global-procurement` |
 
 ### 6.4 About
 - **Intent:** informational + trust.
-- **Sections:** Origin paragraph · Team (university affiliations) · Founder & CEO card with full quote, headshot, LinkedIn, email · Awards · Mission (WHO 2030 alignment).
+- **Sections:** Origin paragraph · Team (university affiliations) · Founder & CEO card with full quote, headshot, LinkedIn, email · Recognition (same 4 cards as homepage) · Mission (WHO 2030 alignment).
 - **Schema:** `AboutPage`, `Organization` (extended with `founder`), `Person` for the CEO.
 
 ### 6.5 Contact
@@ -195,11 +197,11 @@ The five services and their canonical slugs:
 - **Backend:** Server Action → Zod validation → insert into Supabase `contact_submissions` table → email notification via Resend or equivalent.
 - **Schema:** `ContactPage`, `Organization`.
 
-### 6.6 Blog index and article template
-- **Index:** card grid (cover image, category tag, title, 2-line excerpt, date, read-time, CTA).
-- **Article:** hero image · breadcrumb · author byline (real name, photo, bio, LinkedIn — `Person` schema) · body with proper heading hierarchy · pull quotes · related articles · CTA to product or services.
-- **Schema:** `Blog` (index) and `BlogPosting` or `Article` with `author`, `datePublished`, `dateModified`, `image`, `mainEntityOfPage`.
-- **Categories (initial):** Cervical Cancer · CRISPR · Regulatory · Industry News.
+### 6.6 Global procurement services
+
+Cervixel sources CE-marked medical devices, IVDs, and pharmaceuticals from European supply chains for international partners. The service includes vendor auditing, price benchmarking, regulatory documentation for international customs and local health authorities, logistics and cold-chain verification where applicable, and a Standard Comprehensive Report on each engagement.
+
+This is an authorised operational offering — not aspirational. Page copy stays at category level: do not name specific countries served, specific partners, throughput numbers, or response times unless this section is updated to authorise them.
 
 ---
 
@@ -229,12 +231,10 @@ Implement as JSON-LD in the `<head>` via the Metadata API or a dedicated `<scrip
 | Page | Required schemas |
 |---|---|
 | Homepage | `Organization`, `WebSite` + `SearchAction`, optional `MedicalOrganization` (pending clarification) |
-| Product (CervixScan) | `Product` + `Offer`, `FAQPage`, `BreadcrumbList`, optional `MedicalDevice` |
-| Service pages | `Service` (with `provider`), `BreadcrumbList`, `FAQPage` if FAQ block present |
+| Product (RapidCan) | `Product` + `Offer`, `FAQPage`, `BreadcrumbList`, optional `MedicalDevice` |
+| Service pages (incl. global procurement) | `Service` (with `provider`), `BreadcrumbList`, `FAQPage` if FAQ block present |
 | About | `AboutPage`, `Organization`, `Person` (CEO) |
 | Contact | `ContactPage`, `Organization` |
-| Blog index | `Blog`, `BreadcrumbList` |
-| Blog article | `BlogPosting` or `Article`, `Person` (author), `BreadcrumbList` |
 
 Schema must match what is visible on the page — mismatches are penalised.
 
@@ -275,8 +275,6 @@ When new content types or features are introduced, design the schema **before** 
 |---|---|
 | `contact_submissions` | Stores contact form submissions. RLS: insert only from authenticated edge / service-role. Read restricted to admin role. |
 | `preorders` | Stores preorder records (tier, units, contact, Stripe session ID, status). RLS: insert via server action; read by admin role only. |
-| `blog_posts` | Stores published blog content if managed in DB rather than MDX. RLS: read for `anon` where `published_at <= now()`; write for `editor` role. |
-| `authors` | Author profiles for blog (bio, photo, LinkedIn). RLS: read for `anon`; write for `editor`. |
 | `newsletter_subscribers` | Email capture. RLS: insert for `anon`; read for admin only. |
 
 ### RLS rule of thumb
@@ -291,25 +289,20 @@ When new content types or features are introduced, design the schema **before** 
 
 ## 11. Design System
 
-### Palette (working draft — confirm with brand)
-- **Primary:** deep teal (`#0F4C5C` or similar), white.
-- **Accent:** warm amber or coral, used sparingly for CTAs and award callouts.
-- **Neutrals:** slate greys for body text and surfaces.
-- **Tone:** clinical precision with accessible warmth. Premium European life-sciences brand. Not sterile, not flashy.
+Source of truth for tokens, components, and layout patterns: [`design-system.md`](./design-system.md). Implementation lives in [`app/globals.css`](./app/globals.css) and [`components/ui/`](./components/ui/).
+
+### Carrier
+- **Ink:** deep navy `#0E2233`. Used for almost all text and the primary CTA fill.
+- **Mood washes:** four soft section-background gradients — `--wash-mist`, `--wash-blush`, `--wash-sand`, `--wash-sage`. No saturated brand accent.
 
 ### Typography
-- **Headings + body:** Inter or DM Sans (modern sans-serif), loaded via `next/font` with `display: 'swap'`.
-- **Body minimum:** 16px.
-- **Line height:** 1.5–1.7 for body.
+- **Display:** Fraunces (serif), via `next/font` with `display: 'swap'`.
+- **Sans:** Inter, via `next/font` with `display: 'swap'`.
+- **Body minimum:** 16px. Line-height 1.5–1.7.
 
 ### Iconography & imagery
-- Line-only icons (Lucide or Phosphor). No filled cartoon icons.
-- Imagery: microscopy, clinical settings, European cityscapes, human-centred health moments. **No stock-photo clichés** (no “lab-coat-pointing-at-screen” genre).
-- Hero backgrounds may use abstract microscopy or CRISPR-imagery aesthetic in deep teal tones.
-
-### Tailwind
-- Define palette and font families in `tailwind.config.ts` under `theme.extend`.
-- Co-locate shared UI primitives in `components/ui/` (Button, Card, Section, Container, etc.).
+- Lucide for UI icons. Custom inline SVGs (line-art, DNA-strand divider, squiggle) for biology motifs. Outlined only.
+- Photography: real lab and clinical settings. No stock-photo clichés. Photos sit behind glass panels — never use raw text-on-photo overlays.
 
 ---
 
@@ -331,7 +324,7 @@ When responding to a request on this project, the assistant should:
 ## 13. Hard Constraints & Things Never to Do
 
 - ❌ **Do not invent scientific claims, study results, regulatory approvals, or clinical data.** Use only what is in this file or the project brief. If a claim is unverified, flag it.
-- ❌ **Do not state CervixScan is CE certified** — it is **under review**.
+- ❌ **Do not state RapidCan is CE certified** — it is **under review**.
 - ❌ **Do not use `any` in TypeScript** without an inline justification comment.
 - ❌ **Do not expose Supabase service-role keys to the client.** Server runtimes only.
 - ❌ **Do not bypass RLS** in client code. Add a policy instead.
@@ -352,13 +345,12 @@ These items affect implementation and should be resolved with the project owner 
 1. **“100% diagnostic accuracy” claim** — confirm the underlying study, sample size, and conditions, and agree on the precise wording with regulatory/legal counsel before publication.
 2. **MedicalOrganization schema usage** — confirm whether Cervixel’s legal classification supports the `MedicalOrganization` schema type, or whether `Organization` alone is more accurate at this stage.
 3. **Languages** — site launches in English only. Confirm whether Lithuanian (`lt`) and other locales are planned; if so, decide on the URL strategy (subdirectory recommended per `SEO_GUIDELINES.md` §9.2) and `hreflang` setup before scaffolding routes.
-4. **Blog content source** — MDX in the repo, Supabase-managed, or a headless CMS (Sanity, Contentful)? Recommendation: MDX for editorial control + speed; switch to Supabase only if non-developer editors need access.
-5. **Newsletter / lead capture** — provider (Resend, Mailchimp, Beehiiv)? Required for transactional email and any future newsletter.
-6. **CRM integration** — should contact form / preorder submissions sync to a CRM (HubSpot, Pipedrive)? Affects schema and webhook design.
-7. **Stripe account** — live or test mode for initial deploy? Currency confirmed as EUR. Tax handling (Stripe Tax) needed?
-8. **Author pool** — confirm which team members will be public bylines on blog content (required for E-E-A-T per `SEO_GUIDELINES.md` §10.1).
-9. **CEO headshot, product imagery, microscopy assets** — final assets pending. Use placeholders with `next/image` blur and clear `TODO` markers until delivered.
-10. **Legal pages** — Privacy Policy, Terms of Service, Cookie Policy. Required for trust signals (`SEO_GUIDELINES.md` §2.2). Source the drafts from legal counsel.
+4. **Newsletter / lead capture** — provider (Resend, Mailchimp, Beehiiv)? Required for transactional email and any future newsletter.
+5. **CRM integration** — should contact form / preorder submissions sync to a CRM (HubSpot, Pipedrive)? Affects schema and webhook design.
+6. **Stripe account** — live or test mode for initial deploy? Currency confirmed as EUR. Tax handling (Stripe Tax) needed?
+7. **CEO headshot, product imagery, microscopy assets** — final assets pending. Use placeholders with `next/image` blur and clear `TODO` markers until delivered.
+8. **Legal pages** — Privacy Policy, Terms of Service, Cookie Policy. Required for trust signals (`SEO_GUIDELINES.md` §2.2). Source the drafts from legal counsel.
+9. **Logo** — current `public/logo.png` is a teal ribbon, off-palette against the ink-navy + mood-wash design system. Replace with an ink-navy variant.
 
 ---
 

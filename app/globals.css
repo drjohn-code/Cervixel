@@ -1,74 +1,412 @@
 @import "tailwindcss";
 
+/* =============================================================================
+   Cervixel design tokens — see design-system.md.
+   - Brand carrier: deep ink navy (#0E2233) + 4 mood washes. No saturated accent.
+   - Typography: Fraunces (display) + Inter (body) + JetBrains Mono.
+   - Surfaces: light-only. No dark mode in v1.
+   ========================================================================== */
+
 @theme {
-  /* Font */
-  --font-sans: var(--font-inter);
+  /* === Brand Ink === */
+  --color-ink: #0e2233;
+  --color-ink-700: #1a3247;
+  --color-ink-500: #3a556b;
+  --color-ink-300: #7e94a8;
 
-  /* Brand colours */
-  --color-primary: #0f4c5c;
-  --color-primary-dark: #0a3540;
-  --color-primary-light: #1a6b80;
+  /* === Mood Washes === */
+  --color-wash-mist: #e8e9ef;   /* hardware / automation / lab */
+  --color-wash-blush: #f3dcea;  /* data / AI / software */
+  --color-wash-sand: #efe8dc;   /* services / biology / applications */
+  --color-wash-sage: #dde8dd;   /* customer stories / sustainability */
 
-  --color-accent: #e07040;
-  --color-accent-dark: #c05a2e;
-  --color-accent-light: #f59460;
+  /* === Neutrals (warm-cool grey) === */
+  --color-gray-50: #fafafb;
+  --color-gray-100: #f4f4f6;
+  --color-gray-200: #e7e8ec;
+  --color-gray-300: #d2d5dc;
+  --color-gray-400: #a8adb8;
+  --color-gray-500: #7b8090;
+  --color-gray-600: #565c6b;
+  --color-gray-700: #3b414e;
+  --color-gray-800: #252a35;
+  --color-gray-900: #15191f;
+  --color-gray-950: #0a0c10;
 
-  /* Semantic surface colours */
+  /* === Semantic === */
+  --color-success: #2f7d5b;
+  --color-success-bg: #e6f2ec;
+  --color-warning: #a86a1f;
+  --color-warning-bg: #faefd9;
+  --color-error: #b23a3a;
+  --color-error-bg: #f8e3e3;
+  --color-info: #2d5da8;
+  --color-info-bg: #e4ecf8;
+
+  /* === Surface aliases (kept so legacy class names like bg-bg, text-text,
+         text-muted, border-border keep resolving without rewriting every page) === */
   --color-bg: #ffffff;
-  --color-surface: #f8fafc;
-  --color-border: #e2e8f0;
+  --color-bg-app: #fafafb;
+  --color-surface: #ffffff;
+  --color-surface-2: #f4f4f6;
+  --color-border: #e7e8ec;
+  --color-border-strong: #d2d5dc;
+  --color-text: #0e2233;
+  --color-muted: #565c6b;
+  --color-text-subtle: #7b8090;
+  --color-text-on-ink: #ffffff;
 
-  /* Text */
-  --color-text: #1e293b;
-  --color-muted: #64748b;
+  /* === Type families ===
+     Inter (--font-inter), Fraunces (--font-fraunces), and JetBrains Mono
+     (--font-jetbrains-mono) are wired in app/layout.tsx via next/font. */
+  --font-display: var(--font-fraunces), "Iowan Old Style", "Times New Roman", Georgia, serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "SF Mono", Menlo, Consolas, monospace;
 
-  /* Status */
-  --color-success: #16a34a;
-  --color-warning: #ca8a04;
-  --color-danger: #dc2626;
+  /* === Radius === */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 32px;
+  --radius-3xl: 48px;
+  --radius-pill: 999px;
 
-  /* Explicit slate scale */
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-200: #e2e8f0;
-  --color-slate-300: #cbd5e1;
-  --color-slate-400: #94a3b8;
-  --color-slate-500: #64748b;
-  --color-slate-600: #475569;
-  --color-slate-700: #334155;
-  --color-slate-800: #1e293b;
-  --color-slate-900: #0f172a;
+  /* === Shadows (restrained — depth comes from glass blur, not drop-shadow) === */
+  --shadow-xs: 0 1px 2px rgba(14, 34, 51, 0.04);
+  --shadow-sm: 0 2px 8px rgba(14, 34, 51, 0.06);
+  --shadow-md: 0 8px 24px rgba(14, 34, 51, 0.08);
+  --shadow-lg: 0 24px 48px rgba(14, 34, 51, 0.12);
+  --shadow-glass: 0 24px 64px rgba(14, 34, 51, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  /* === Motion === */
+  --ease-out-quiet: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-instant: 80ms;
+  --duration-fast: 160ms;
+  --duration-base: 240ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
 }
 
-/* Base resets */
+/* =============================================================================
+   Type-scale utilities. Each level carries its own font-family — Tailwind v4's
+   --text-* modifiers don't include font-family, so we use @utility blocks.
+   ========================================================================== */
+
+/* Display sizes use clamp() so headlines shrink on narrow viewports before
+   they overflow a glass-panel hero. Ceilings are calibrated below the
+   design-system.md §3.2 px values because the actual headline copy used on
+   the site doesn't fit at 96/72/56 within a 900px-tall viewport. */
+
+@utility text-display-2xl {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+}
+
+@utility text-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+}
+
+@utility text-display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+}
+
+@utility text-h1 {
+  font-family: var(--font-display);
+  font-size: 3rem;        /* 48px */
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+}
+
+@utility text-h2 {
+  font-family: var(--font-display);
+  font-size: 2.25rem;     /* 36px */
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+}
+
+@utility text-h3 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;     /* 28px */
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  font-weight: 500;
+  font-variation-settings: "opsz" 96;
+}
+
+@utility text-h4 {
+  font-family: var(--font-sans);
+  font-size: 1.375rem;    /* 22px */
+  line-height: 1.3;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+@utility text-h5 {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;    /* 18px */
+  line-height: 1.35;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+
+@utility text-body-lg {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;     /* 20px */
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+@utility text-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;        /* 16px */
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+@utility text-body-sm {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;   /* 15px */
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+@utility text-caption {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;   /* 13px */
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+/* The eyebrow utility sets type only. The eyebrow-rule (1px underline that
+   spans only the text width) is owned by the <Eyebrow> primitive. */
+@utility text-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;     /* 12px */
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+@utility text-mono-sm {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* =============================================================================
+   Base resets + globals
+   ========================================================================== */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* Focus visible ring — uses primary teal */
-:focus-visible {
-  outline: 2px solid #0f4c5c;
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
 html {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-bg);
   scroll-behavior: smooth;
 }
 
 body {
+  font-size: 1rem;        /* WCAG-friendly minimum */
   line-height: 1.6;
-  font-size: 1rem; /* minimum 16px per §CLAUDE 11 */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Prose defaults for long-form content */
-.prose {
-  line-height: 1.7;
+/* Default focus ring — ink, no glow */
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* =============================================================================
+   Glass panel — design-system.md §7.3
+   ========================================================================== */
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-2xl);
+  padding: clamp(2rem, 5vw, 4rem);
+  box-shadow: var(--shadow-glass);
+}
+
+@supports not ((backdrop-filter: blur(24px)) or (-webkit-backdrop-filter: blur(24px))) {
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.92);
+  }
+}
+
+/* Stacked CTA group used inside glass-panel heroes — children become
+   equal-width regardless of label length. Horizontal button rows elsewhere
+   keep natural width. */
+.button-group-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.button-group-stacked > a,
+.button-group-stacked > button {
+  width: 100%;
+}
+
+/* =============================================================================
+   Long-form prose — used by /privacy, /terms, /cookies, /about
+   ========================================================================== */
+
+.prose,
+.prose-cervixel {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-ink);
   max-width: 70ch;
 }
 
-.prose p + p {
-  margin-top: 1em;
+.prose > * + *,
+.prose-cervixel > * + * {
+  margin-top: 1.25em;
+}
+
+.prose h1,
+.prose-cervixel h1 {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  color: var(--color-ink);
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose h2,
+.prose-cervixel h2 {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  color: var(--color-ink);
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3,
+.prose-cervixel h3 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  font-weight: 500;
+  font-variation-settings: "opsz" 96;
+  color: var(--color-ink);
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p,
+.prose-cervixel p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.prose a,
+.prose-cervixel a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-thickness var(--duration-fast) var(--ease-out-quiet);
+}
+
+.prose a:hover,
+.prose-cervixel a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.prose ul,
+.prose ol,
+.prose-cervixel ul,
+.prose-cervixel ol {
+  padding-left: 1.5rem;
+}
+
+.prose ul,
+.prose-cervixel ul {
+  list-style: disc;
+}
+
+.prose ol,
+.prose-cervixel ol {
+  list-style: decimal;
+}
+
+.prose li + li,
+.prose-cervixel li + li {
+  margin-top: 0.5em;
+}
+
+.prose strong,
+.prose-cervixel strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.prose blockquote,
+.prose-cervixel blockquote {
+  border-left: 1.5px solid var(--color-ink);
+  padding-left: 1.25rem;
+  font-style: italic;
+  color: var(--color-gray-700);
+}
+
+/* =============================================================================
+   Reduced motion — design-system.md §6.3 / §10
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
