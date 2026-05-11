@@ -282,23 +282,25 @@ export default function PreorderForm() {
         />
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <Button
-          type="submit"
-          variant="primary"
-          size="lg"
-          disabled={status === "sending"}
-        >
-          {status === "sending" ? "Sending…" : "Submit preorder enquiry"}
-        </Button>
-        <p
-          role="status"
-          aria-live="polite"
-          className="text-body-sm text-muted min-h-[1.5rem] sm:max-w-md sm:text-right"
-        >
-          {statusMessage}
-        </p>
-      </div>
+      <div className="flex flex-col items-start gap-4">
+  <Button
+    type="submit"
+    variant="primary"
+    size="lg"
+    disabled={status === "sending"}
+  >
+    {status === "sending" ? "Sending…" : "Submit preorder enquiry"}
+  </Button>
+  
+  <p
+    role="status"
+    aria-live="polite"
+    {/* Removed sm:text-right and sm:max-w-md to keep it left-aligned below the button */}
+    className="text-body-sm text-muted min-h-[1.5rem]"
+  >
+    {statusMessage}
+  </p>
+</div>
     </form>
   );
 }

@@ -200,23 +200,25 @@ export default function ContactForm() {
         />
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <Button
-          type="submit"
-          variant="primary"
-          size="lg"
-          disabled={status === "sending"}
-        >
-          {status === "sending" ? "Sending…" : "Send message"}
-        </Button>
-        <p
-          role="status"
-          aria-live="polite"
-          className="text-body-sm text-muted min-h-[1.5rem]"
-        >
-          {statusMessage}
-        </p>
-      </div>
+      <div className="flex flex-col items-start gap-4">
+  <Button
+    type="submit"
+    variant="primary"
+    size="lg"
+    disabled={status === "sending"}
+  >
+    {status === "sending" ? "Sending…" : "Send message"}
+  </Button>
+  
+  {/* The message will now always stay below the button */}
+  <p
+    role="status"
+    aria-live="polite"
+    className="text-body-sm text-muted min-h-[1.5rem]"
+  >
+    {statusMessage}
+  </p>
+</div>
     </form>
   );
 }
