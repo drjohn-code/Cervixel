@@ -295,7 +295,6 @@ export default function PreorderForm() {
   <p
     role="status"
     aria-live="polite"
-    {/* Removed sm:text-right and sm:max-w-md to keep it left-aligned below the button */}
     className="text-body-sm text-muted min-h-[1.5rem]"
   >
     {statusMessage}
