@@ -210,7 +210,6 @@ export default function ContactForm() {
     {status === "sending" ? "Sending…" : "Send message"}
   </Button>
   
-  {/* The message will now always stay below the button */}
   <p
     role="status"
     aria-live="polite"

@@ -131,7 +131,7 @@ export default function ServicesHubPage() {
         <Container>
           <SectionHeader
             eyebrow="What we offer"
-            title="Five lines of work."
+            title="Six lines of work."
             lead="Each engagement is scoped on its own. Most clients begin with one and grow into another as the programme moves."
           />
           <ul className="mt-12 grid list-none gap-6 sm:grid-cols-2 lg:grid-cols-3">
